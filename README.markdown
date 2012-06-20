@@ -12,13 +12,13 @@ Webpipes are handy HTTP utility programs. They accept input and return output. I
 
 Add `webpipe.class.php` to your project folder and don't forget to `require()`.
 
-``` php
+```php
 require('webpipe.class.php);
 ```
 
 ## Usage
 
-``` php
+```php
 // Init 
 $webpipe = new Webpipe();
 
