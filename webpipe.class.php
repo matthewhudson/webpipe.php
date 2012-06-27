@@ -6,7 +6,7 @@
  * @package  Webpipe
  * @author   Dozier Hudson <me@dozierhudson.com>
  * @license  http://creativecommons.org/licenses/MIT/ MIT
- * @link     http://www.dozierhudson.com/projects/webpipe-php/
+ * @link     http://www.dozierhudson.com/projects/webpipe.php/
  */
 class Webpipe {
 	
