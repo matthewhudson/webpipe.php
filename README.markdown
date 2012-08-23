@@ -1,4 +1,4 @@
-# WEBPIPES FOR PHP
+# [WEBPIPE.PHP](http://www.matthewghudson.com/projects/webpipe.php/)
 
 #### Use Webpipes in your PHP applications.
 
@@ -13,7 +13,7 @@ Webpipes are handy HTTP utility programs. They accept input and return output. I
 Add `webpipe.class.php` to your project folder and don't forget to `require()`.
 
 ```php
-require('webpipe.class.php);
+require('webpipe.class.php');
 ```
 
 ## Usage
@@ -39,5 +39,5 @@ if ($response) {
 # Resources
 
 * [Webpipes.org](http://www.webpipes.org/)
-* [Webpipe.js](http://www.dozierhudson.com/projects/webpipe.js/)
-* [Webpipe.php](http://www.dozierhudson.com/projects/webpipe.php/)
+* [Webpipe.js](http://www.matthewghudson.com/projects/webpipe.js/)
+* [Webpipe.php](http://www.matthewghudson.com/projects/webpipe.php/)
