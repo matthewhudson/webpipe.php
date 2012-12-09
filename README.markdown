@@ -1,12 +1,12 @@
-# [WEBPIPE.PHP](http://www.matthewghudson.com/projects/webpipe.php/)
+# [WEBPIPE.PHP](http://www.github.com/matthewhudson/webpipe.php/)
 
-#### Use Webpipes in your PHP applications.
+#### Use WebPipes in your PHP applications.
 
 ## Introduction
 
-Webpipes are handy HTTP utility programs. They accept input and return output. If you're missing a Standard Library or some other basic and/or extended functionality, there may be a Webpipe available.
+WebPipes are handy HTTP utility programs. They accept input and return output. If you're missing a Standard Library or some other basic and/or extended functionality, there may be a WebPipe available.
 
-[Learn more about Webpipes &rarr;](http://www.webpipes.org/)
+[Learn more about WebPipes &rarr;](http://www.webpipes.org/)
 
 ## Setup
 
@@ -20,15 +20,14 @@ require('webpipe.class.php');
 
 ```php
 // Init 
-$webpipe = new Webpipe();
+$webpipe = new WebPipe();
 
-// Make our webpipe request
-$response = $webpipe->request("proxy", array(
-	"method" => "GET",
-	"url" => "http://www.google.com/"
+// Make our WebPipe request
+$response = $webpipe->execute("parse-markdown", array(
+	"markdown" => "*Hello World!*"
 ));
 
-// Print the webpipe response
+// Print the WebPipe response
 if ($response) {
 	print "<pre>" . $response . "</pre>";
 } else {
@@ -38,6 +37,4 @@ if ($response) {
 
 # Resources
 
-* [Webpipes.org](http://www.webpipes.org/)
-* [Webpipe.js](http://www.matthewghudson.com/projects/webpipe.js/)
-* [Webpipe.php](http://www.matthewghudson.com/projects/webpipe.php/)
+* [WebPipes.org](http://www.webpipes.org/)

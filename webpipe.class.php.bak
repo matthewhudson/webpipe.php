@@ -11,28 +11,46 @@
 class WebPipe {
 	
 	// HTTP UserAgent.
-	private $_userAgent = 'WebPipe-PHP/0.2.0';
+	private $_userAgent = "WebPipe-PHP/0.2.0";
 	
 	/**
 	 * Returns a WebPipe's Block Definition. 
 	 * It's handy while debugging and/or learning about new webpipes.
 	 *
-	 * @param string $block URL of the WebPipe to call.
+	 * @param string $block Name or URL of the WebPipe to call.
 	 * @return string 
 	 */
 	public function options($block) {
-		return $this->_request('options', $block);
+		if ($this->_isURL($block)) {
+			$response = $this->_request("options", $block);
+		} else {
+			$registryURL = "http://registry.webpipes.org/blocks/$name";
+			$response = $this->_request("options", $registryURL);
+		}
+		
+		return $response;
 	}
 
 	/**
 	 * Make a request to a WebPipe Block.
 	 *
-	 * @param string $block URL of the Block to call.
+	 * @param string $block Name or URL of the Block to call.
 	 * @param array $input Any Input to send to the Block.
 	 * @return string
 	 */
 	public function execute($block, $input = array()) {
-		return $this->_request('post', $block, $input);
+		if ($this->_isURL($block)) {
+			$response = $this->_request("post", $block, $input);
+		} else {
+			$registryURL = "http://registry.webpipes.org/blocks/$name";
+			$response = $this->_request("options", $registryURL);
+		}
+		
+		$dispatchURL = "http://dispatch.{$this->_hostname}/$name";
+		
+		$response = $this->_request("post", $dispatchURL, $data);
+		
+		return $response;
 	}
 
 	/**
@@ -44,6 +62,7 @@ class WebPipe {
 	 * @return string|bool False on fail, or response body string on success.
 	 */	
 	private function _request($method, $url, $data = array()) {
+		
 		// Create a new cURL resource
 		$curl = curl_init();
 		
@@ -69,25 +88,17 @@ class WebPipe {
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 		
 		// Set Method: If POST request, set it up + add data.
-		if (strtolower($method) === 'post') {
-			curl_setopt($curl, CURLOPT_HEADER, 'application/json');
-			
-			// Convert data to Input Record
+		if (strtolower($method) === "post") {
+		
+			// Regular HTTP POST: application/x-www-form-urlencoded
+			curl_setopt($curl, CURLOPT_POST, true);
+		
+			// The full data to post in a HTTP "POST" operation.
 			if (sizeof($data)) {
-				foreach ($data as $key => $val) {
-					if (substr($val, 0, 1) === '@') {
-						$data[$key] = file_get_contents(substr($val, 1, strlen($val)));
-					}
-					
-				}
-				$data = json_encode(array(
-					'inputs' => array($data)
-				));
-				// The full data to post in a HTTP 'POST' operation.
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 			}
 		} else {
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'options');
+			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "options");
 		}
 	
 		// Execute the HTTP request.
@@ -105,6 +116,10 @@ class WebPipe {
 		}
 		
 		return $response;
+	}
+	
+	private function _isURL($url) {
+		return (filter_var($url, FILTER_VALIDATE_URL)) ? true : false;
 	}
 }
 ?>
