@@ -70,8 +70,8 @@ class WebPipe {
     
     // Set Method: If POST request, set it up + add data.
     if (strtolower($method) === 'post') {
-      curl_setopt($curl, CURLOPT_HEADER, 'application/json');
-      
+      curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      
       // Convert data to Input Record
       if (sizeof($data)) {
         foreach ($data as $key => $val) {
